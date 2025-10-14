@@ -1,22 +1,21 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { UserService } from './core/services/user';
-import { AuthService } from './core/services/auth';
-import { IUserContext } from './core/interfaces/user';
-import { NotificationService } from './core/services/notification';
-import { SystemSettingsService } from './core/services/system-settings';
-import { FranchiseService } from './core/services/franchise';
+import { MenuService } from '../../services/menu';
+import { UserService } from '../../services/user';
+import { AuthService } from '../../services/auth';
+import { DataService } from '../../services/data';
+import { NotificationService } from '../../services/notification';
+import { SystemSettingsService } from '../../services/system-settings';
+import { FranchiseService } from '../../services/franchise';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DataService } from './core/services/data';
-import { MenuService } from './core/services/menu';
+import { IUserContext } from '../../interfaces/user';
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  template: `<router-outlet />`,
-  styleUrl: './app.scss'
+  selector: 'app-auth-callback',
+  imports: [],
+  templateUrl: './auth-callback.html',
+  styleUrl: './auth-callback.scss'
 })
-export class App implements OnInit {
+export class AuthCallback implements OnInit {
   private userService = inject(UserService);
   private authService = inject(AuthService);
   private notificationService = inject(NotificationService);
@@ -27,10 +26,12 @@ export class App implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   async ngOnInit() {
-    await this.initSession();
+    await this.authService.completeAuthentication();
+
+    this.initSession();
   }
 
-  async initSession() {
+   async initSession() {
     const user = this.authService.user();
     const isLoggedIn = this.authService.isLoggedIn();
 
@@ -82,4 +83,6 @@ export class App implements OnInit {
 
     this.userService.goToDefaultRoute();
   }
+
+
 }

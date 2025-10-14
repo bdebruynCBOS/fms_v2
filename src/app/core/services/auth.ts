@@ -12,13 +12,15 @@ export class AuthService {
   constructor() {
     const key = `oidc.user:${environment.authority}:${environment.client_id}`;
     const userCache = sessionStorage.getItem(key) ?? null;
+    const user = this.user();
 
     if(userCache !== null) {
       this.user.update(() => JSON.parse(userCache));
     }
 
-    if(!this.user()) {
-      this.manager.getUser().then(user => this.user.update(() => user));
+    if(user === null) {
+      this.manager.getUser()
+        .then(data => this.user.update(() => data));
     }
   }
 

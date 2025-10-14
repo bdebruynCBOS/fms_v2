@@ -7,8 +7,12 @@ export const routes: Routes = [
         loadComponent: () => import('./layout/app').then((m) => m.AppLayout),
         canActivate: [authGuard]
     },
+    {
+        path: 'auth-callback',
+        loadComponent: () => import('./core/pages/auth-callback/auth-callback').then((m) => m.AuthCallback),
+    },
     { 
         path: '**', 
         loadComponent: () => import('./shared/pages/not-found/not-found').then((m) => m.NotFound)
-     }
+    }
 ];

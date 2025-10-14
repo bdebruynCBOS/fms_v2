@@ -2,6 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { Company } from '../interfaces/company';
 import { CompanyVisit, CompanyVisitNote, Section } from '../interfaces/company-visit';
 import { DataService } from './data';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,35 +18,29 @@ export class FranchiseService {
 
   private ds = inject(DataService);
 
-  // async loadMyFranchisees() {
-  //   const promise = new Promise(resolve => {
-  //     this.ds.getUserCompanies(this.showAll).subscribe((data: c.Company[]) => {
-  //       this.franchisees = data;
-  //       this.currentFranchise = this.franchisees[0];
-  //       resolve(null);
-  //     });
-  //   });
-  //   return promise;
-  // }
 
-  // loadBPFranchisees(bpId: string) {
-  //   const promise = new Promise(resolve => {
-  //     this.ds.getUsersCompanies(bpId, this.showAll).subscribe((data: c.Company[]) => {
-  //       this.franchisees = data;
-  //       this.currentFranchise = this.franchisees[0];
-  //       resolve(null);
-  //     });
-  //   });
-  //   return promise;
-  // }
+  async loadMyFranchisees() {
+    const data = await firstValueFrom(this.ds.getUserCompanies(this.showAll));
 
-  // loadCurrentFranchisee(id: string) {
-  //   const promise = new Promise(resolve => {
-  //     this.ds.getCompany(id).subscribe((data: c.Company) => {
-  //       this.currentFranchise = data;
-  //       resolve(null);
-  //     });
-  //   });
-  //   return promise;
-  // }
+    this.franchisees.update(() => data);
+    this.currentFranchise.update(() => data[0]);
+
+    return;
+  }
+
+  async loadBPFranchisees(bpId: string) {
+    const data = await firstValueFrom(this.ds.getUsersCompanies(bpId, this.showAll));
+
+    this.franchisees.update(() => data);
+    this.currentFranchise.update(() => data[0]);
+
+    return;
+  }
+
+  async loadCurrentFranchisee(id: string) {
+    const  data = await firstValueFrom(this.ds.getCompany(id));
+    this.currentFranchise.update(() => data);
+    
+    return;
+  }
 }
