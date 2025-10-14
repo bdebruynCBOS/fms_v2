@@ -1,0 +1,166 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@include mat.elevation-classes();
+@include mat.app-background();
+
+// Note: Color palettes are generated from primary: #007B6C, secondary: #333333, tertiary: #4F4F4F, neutral: #E0E0E0, error: #D92B2B
+$_palettes: (
+  primary: (0: #000000,
+    10: #00201b,
+    20: #003730,
+    25: #00443b,
+    30: #005046,
+    35: #005d52,
+    40: #006b5d,
+    50: #1b8576,
+    60: #3fa090,
+    70: #5dbbaa,
+    80: #79d7c5,
+    90: #96f4e1,
+    95: #b5ffef,
+    98: #e5fff8,
+    99: #f3fffa,
+    100: #ffffff,
+  ),
+  secondary: (0: #000000,
+    10: #1b1c1c,
+    20: #303030,
+    25: #3b3b3b,
+    30: #474747,
+    35: #535252,
+    40: #5f5e5e,
+    50: #787777,
+    60: #929090,
+    70: #acabaa,
+    80: #c8c6c6,
+    90: #e4e2e1,
+    95: #f3f0f0,
+    98: #fbf9f8,
+    99: #fefcfb,
+    100: #ffffff,
+  ),
+  tertiary: (0: #000000,
+    10: #1b1c1c,
+    20: #303030,
+    25: #3b3b3b,
+    30: #474747,
+    35: #525252,
+    40: #5e5e5e,
+    50: #777777,
+    60: #919090,
+    70: #acabab,
+    80: #c8c6c6,
+    90: #e4e2e2,
+    95: #f2f0f0,
+    98: #fbf9f8,
+    99: #fefcfb,
+    100: #ffffff,
+  ),
+  neutral: (0: #000000,
+    4: #0a0b0b,
+    6: #101111,
+    10: #1a1c1c,
+    12: #1e2020,
+    17: #292b2b,
+    20: #2f3131,
+    22: #333535,
+    24: #383a3a,
+    25: #3a3c3c,
+    30: #454747,
+    35: #515353,
+    40: #5d5f5f,
+    50: #767777,
+    60: #909191,
+    70: #ababab,
+    80: #c6c6c6,
+    87: #dadada,
+    90: #e2e2e2,
+    92: #e8e8e8,
+    94: #eeeeee,
+    95: #f1f1f1,
+    96: #f4f4f4,
+    98: #f9f9f9,
+    99: #fcfcfc,
+    100: #ffffff,
+  ),
+  neutral-variant: (0: #000000,
+    10: #131e1b,
+    20: #283330,
+    25: #333e3b,
+    30: #3e4946,
+    35: #495552,
+    40: #55615e,
+    50: #6e7a76,
+    60: #879390,
+    70: #a2aeaa,
+    80: #bdc9c5,
+    90: #d9e5e1,
+    95: #e7f3ef,
+    98: #f0fcf8,
+    99: #f3fffa,
+    100: #ffffff,
+  ),
+  error: (0: #000000,
+    10: #410002,
+    20: #690005,
+    25: #7e0007,
+    30: #93000a,
+    35: #a80710,
+    40: #ba1a1a,
+    50: #de3730,
+    60: #ff5449,
+    70: #ff897d,
+    80: #ffb4ab,
+    90: #ffdad6,
+    95: #ffedea,
+    98: #fff8f7,
+    99: #fffbff,
+    100: #ffffff,
+  ),
+);
+
+$_rest: (
+  secondary: map.get($_palettes, secondary),
+  neutral: map.get($_palettes, neutral),
+  neutral-variant: map.get($_palettes, neutral-variant),
+  error: map.get($_palettes, error),
+);
+$_primary: map.merge(map.get($_palettes, primary), $_rest);
+$_tertiary: map.merge(map.get($_palettes, tertiary), $_rest);
+
+$fms-theme: mat.define-theme((color: (theme-type: light,
+        primary: $_primary,
+        tertiary: $_tertiary )));
+
+html {
+  @include mat.all-component-themes($fms-theme);
+  @include mat.color-variants-backwards-compatibility($fms-theme);
+
+  .error-badge {
+    @include mat.badge-color($fms-theme, $color-variant: error);
+  }
+
+  .ff-density-5 {
+    @include mat.form-field-density(-5);
+  }
+
+  .ff-density-4 {
+    @include mat.form-field-density(-4);
+  }
+
+  .ff-density-3 {
+    @include mat.form-field-density(-3);
+  }
+
+  .ff-density-2 {
+    @include mat.form-field-density(-2);
+  }
+
+  .ff-density-1 {
+    @include mat.form-field-density(-1);
+  }
+
+  .light-divider {
+    @include mat.divider-overrides((color: lightgray));
+  }
+}

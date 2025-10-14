@@ -48,7 +48,7 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"]
+            "styles": ["src/theme.scss", "src/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -100,9 +100,23 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "development": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular/build:dev-server",
@@ -112,9 +126,12 @@
             },
             "staging": {
               "buildTarget": "fms_v2:build:staging"
+            },
+            "development": {
+              "buildTarget": "fms_v2:build:development"
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n"
@@ -130,7 +147,7 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"]
+            "styles": ["src/theme.scss", "src/styles.scss"]
           }
         }
       }
