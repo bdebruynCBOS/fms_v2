@@ -48,7 +48,8 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/theme.scss", "src/styles.scss"]
+            "styles": ["src/theme.scss", "src/styles.scss"],
+            "allowedCommonJsDependencies": ["oidc-client"]
           },
           "configurations": {
             "production": {
@@ -102,6 +103,7 @@
               ]
             },
             "development": {
+              "sourceMap": true,
               "budgets": [
                 {
                   "type": "initial",
