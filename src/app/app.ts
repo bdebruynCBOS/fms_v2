@@ -46,7 +46,7 @@ export class App implements OnInit {
   }
 
   private async initUser() {
-    if (!this.franchiseService.currentFranchise) {
+    if (!this.franchiseService.currentFranchise()) {
       await this.franchiseService.loadMyFranchisees();
     }
 
