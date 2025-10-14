@@ -103,7 +103,10 @@
               ]
             },
             "development": {
+              "optimization": false,
               "sourceMap": true,
+              "extractLicenses": false,
+              "namedChunks": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -118,7 +121,7 @@
               ]
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular/build:dev-server",
