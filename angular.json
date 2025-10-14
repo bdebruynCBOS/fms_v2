@@ -7,7 +7,29 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:resolver": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
         }
       },
       "root": "",
@@ -24,11 +46,10 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/web.config"
             ],
-            "styles": [
-              "src/styles.scss"
-            ]
+            "styles": ["src/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -46,7 +67,7 @@
               ],
               "outputHashing": "all"
             },
-            "development": {
+            "staging": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
@@ -60,11 +81,11 @@
             "production": {
               "buildTarget": "fms_v2:build:production"
             },
-            "development": {
-              "buildTarget": "fms_v2:build:development"
+            "staging": {
+              "buildTarget": "fms_v2:build:staging"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": ""
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n"
@@ -80,9 +101,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ]
+            "styles": ["src/styles.scss"]
           }
         }
       }
