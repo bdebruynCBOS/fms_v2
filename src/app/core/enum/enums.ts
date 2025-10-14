@@ -4,6 +4,20 @@ export enum BPTaskTypes {
   LinkToReport = 4
 }
 
+export enum ActionTaskKeyTypes {
+  TechBays = 1,
+  TechWheelAlignmentBays = 2,
+  TechWheelAlignmentPost = 4,
+  TechWheelAlignmentPit = 8,
+  TechTyreStrippingMachine = 16,
+  TechWheelAlignmentMachines = 32,
+  TechExhaust = 64,
+  TechTowBars = 128,
+  TechLowLevelBays = 256,
+  TechTwoPostLiftBays = 512,
+  TechFourPostLiftBays = 1024
+}
+
 export enum Roles {
   Administrator = 1,
   ConsumerExecutive = 2,
