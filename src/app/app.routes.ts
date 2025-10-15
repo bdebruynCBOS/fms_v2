@@ -11,8 +11,8 @@ export const routes: Routes = [
         path: 'auth-callback',
         loadComponent: () => import('./core/pages/auth-callback/auth-callback').then((m) => m.AuthCallback),
     },
-    { 
-        path: '**', 
-        loadComponent: () => import('./shared/pages/not-found/not-found').then((m) => m.NotFound)
-    }
+    // { 
+    //     path: '**', 
+    //     loadComponent: () => import('./shared/pages/not-found/not-found').then((m) => m.NotFound)
+    // }
 ];

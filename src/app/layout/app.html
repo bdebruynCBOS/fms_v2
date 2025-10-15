@@ -1,1 +1,66 @@
-<p>applayout works!</p>
+<div>
+    <mat-toolbar class="header-toolbar">
+        <div class="menu-icon-container" (click)="sideNav.toggle(); sideNavRight.close()">
+            <mat-icon class="menu-icon">menu</mat-icon>
+        </div>
+        <img (click)="goHome()" class="logo-image" src="img/logo.png" loading="lazy" />
+        <div class="empty"></div>
+        <div class="toolbar-button-container">
+            @for (item of this.desktopItems(); track $index) {
+                @if(item.icon === 'settings') {
+                     <button [matTooltip]="item.toolTip" mat-icon-button [matMenuTriggerFor]="settingMenu">
+                        <mat-icon color="accent">{{item.icon}}</mat-icon>
+                    </button>
+                } @else {
+                    <button [matTooltip]="item.toolTip" mat-icon-button (click)="item.onClick()">
+                        <mat-icon color="accent">{{item.icon}}</mat-icon>
+                    </button>
+                }
+            }
+        </div>
+        <div class="display-name">
+            <span class="display-text">
+                {{ userService.userContext()?.displayName ?? '...loading' }}
+            </span>
+            <div class="spacer"></div>
+            <div class="profile-container">
+                <app-profile-picture [displayName]="userService.userContext()?.displayName">
+                </app-profile-picture>
+            </div>
+        </div>
+    </mat-toolbar>
+
+    <mat-menu #settingMenu="matMenu">
+        <a mat-menu-item [href]="resetLink">Change Password</a>
+        <button mat-menu-item (click)="signOut()">Sign Out</button>
+    </mat-menu>
+
+    <mat-sidenav-container (backdropClick)="close()" [hasBackdrop]="true">
+    <mat-sidenav class="sidenav-left" #sideNav mode="over">
+      <!-- <left-nav (menuItemClicked)="sideNav.toggle()" /> -->
+    </mat-sidenav>
+
+    <mat-sidenav #sideNavRight class="sidenav-right"
+        [ngClass]="{'calendar-right' : siteNavType() == 'my calendar', 'document-view': siteNavType() == 'documents'}"
+        position="end" opened="false">
+        @if (siteNavType() == 'my calendar') {
+            <!-- <calendar-nav (routeClick)="close()" /> -->
+        } @else {
+            <!-- <right-nav [siteNavType]="siteNavType" (routeClick)="close()" /> -->
+        }
+    </mat-sidenav>
+
+    <div class="my-content" (click)="close()">
+      <div class="container-body-content">
+          <div class="full-width">
+            @if (loading()) {
+                <div class="full-loading-shade">
+                <!-- <loading-view /> -->
+                </div>
+            }
+            <router-outlet />
+          </div>
+        </div>
+    </div>
+  </mat-sidenav-container>
+</div>
